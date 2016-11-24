@@ -1,7 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { addDeck, showAddDeck, hideAddDeck } from '../actions';
 
-const Sidebar = React.createClass({ // Sidebar React component
+const mapStateToProps = (state) => ({  // takes current state and returns props for presentational component 
+    decks: state.decks,  /*[ {name: 'Deck 1'}]*/
+    addingDeck: state.addingDeck
+});
+
+const mapDispatchToProps = dispatch => ({  // maps dispatch function to the callbacks for presentational component 
+    addDeck: name => dispatch(addDeck(name)),    // will be available in React component through this.props
+    showAddDeck: () => dispatch(showAddDeck()),
+    hideAddDeck: () => dispatch(hideAddDeck())
+});
+
+const Sidebar = React.createClass({ // Sidebar React presentational component
     componentDidUpdate() {
     	var el = ReactDOM.findDOMNode(this.refs.add);
     	if (el) el.focus(); // focus if there is an input box
@@ -30,4 +43,4 @@ const Sidebar = React.createClass({ // Sidebar React component
     }
 });
 
-export default Sidebar;
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);  // exporting new container component

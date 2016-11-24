@@ -13,14 +13,16 @@ import './store_test.js'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+
 import { addDeck, showAddDeck, hideAddDeck } from './actions';
 import * as reducers from './reducers';
 import App from './components/App';
 import Sidebar from './components/Sidebar';
 
 
-const store = createStore(  // Redux.createStore
-    combineReducers(reducers)  // Redux.combineReducers
+const store = createStore( // Redux.createStore
+    combineReducers(reducers) // Redux.combineReducers
     // {
     //     cards: cards, // state property: reducer
     //     // function(state, action) {  // reducer function
@@ -37,17 +39,12 @@ const store = createStore(  // Redux.createStore
 function run() {
     let state = store.getState();
     console.log(state);
-    ReactDOM.render((<App>
-		<Sidebar 
-			decks={ state.decks /*[ {name: 'Deck 1'}]*/ } 
-			addingDeck={state.addingDeck}
-			
-			addDeck = {name => store.dispatch(addDeck(name))}    // will be available in React component through this.props
-			showAddDeck = {() => store.dispatch(showAddDeck())}
-			hideAddDeck = {() => store.dispatch(hideAddDeck())}  
-			 />
+    ReactDOM.render((<Provider store={store}>
+	<App> 
+		<Sidebar/>
 		<div>That's it!</div>
-	</App>), document.getElementById('root'));
+	</App>
+	</Provider>), document.getElementById('root'));
 }
 
 run();
