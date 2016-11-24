@@ -15,7 +15,6 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 
-import { addDeck, showAddDeck, hideAddDeck } from './actions';
 import * as reducers from './reducers';
 import App from './components/App';
 import Sidebar from './components/Sidebar';
@@ -41,7 +40,7 @@ function run() {
     console.log(state);
     ReactDOM.render((<Provider store={store}>
 	<App> 
-		<Sidebar/>
+		<Sidebar />
 		<div>That's it!</div>
 	</App>
 	</Provider>), document.getElementById('root'));

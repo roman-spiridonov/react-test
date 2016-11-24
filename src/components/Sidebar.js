@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => ({  // maps dispatch function to the call
     hideAddDeck: () => dispatch(hideAddDeck())
 });
 
-const Sidebar = React.createClass({ // Sidebar React presentational component
+const Sidebar = React.createClass({ // Sidebar React presentational component (changes from props.callback, state from props)
     componentDidUpdate() {
     	var el = ReactDOM.findDOMNode(this.refs.add);
     	if (el) el.focus(); // focus if there is an input box
@@ -44,3 +44,4 @@ const Sidebar = React.createClass({ // Sidebar React presentational component
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);  // exporting new container component
+    // connect two mapping functions to presentational component
